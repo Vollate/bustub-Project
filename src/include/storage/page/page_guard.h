@@ -15,8 +15,7 @@ class BasicPageGuard {
   BasicPageGuard(const BasicPageGuard &) = delete;
   auto operator=(const BasicPageGuard &) -> BasicPageGuard & = delete;
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Move constructor for BasicPageGuard
    *
    * When you call BasicPageGuard(std::move(other_guard)), you
@@ -25,10 +24,9 @@ class BasicPageGuard {
    * example, it should not be possible to call .Drop() on both page
    * guards and have the pin count decrease by 2.
    */
-  BasicPageGuard(BasicPageGuard &&that) noexcept;
+  BasicPageGuard(BasicPageGuard &&that) noexcept = default;
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Drop a page guard
    *
    * Dropping a page guard should clear all contents
@@ -38,8 +36,7 @@ class BasicPageGuard {
    */
   void Drop();
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Move assignment for BasicPageGuard
    *
    * Similar to a move constructor, except that the move
@@ -50,8 +47,7 @@ class BasicPageGuard {
    */
   auto operator=(BasicPageGuard &&that) noexcept -> BasicPageGuard &;
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Destructor for BasicPageGuard
    *
    * When a page guard goes out of scope, it should behave as if
@@ -85,6 +81,7 @@ class BasicPageGuard {
   [[maybe_unused]] BufferPoolManager *bpm_{nullptr};
   Page *page_{nullptr};
   bool is_dirty_{false};
+  bool useless_{false};
 };
 
 class ReadPageGuard {
