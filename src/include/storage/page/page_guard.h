@@ -24,7 +24,7 @@ class BasicPageGuard {
    * example, it should not be possible to call .Drop() on both page
    * guards and have the pin count decrease by 2.
    */
-  BasicPageGuard(BasicPageGuard &&that) noexcept = default;
+  BasicPageGuard(BasicPageGuard &&that) noexcept;
 
   /*
    * @brief Drop a page guard
@@ -87,12 +87,11 @@ class BasicPageGuard {
 class ReadPageGuard {
  public:
   ReadPageGuard() = default;
-  ReadPageGuard(BufferPoolManager *bpm, Page *page) : guard_(bpm, page) {}
+  ReadPageGuard(BufferPoolManager *bpm, Page *page) : guard_(bpm, page) { guard_.page_->RLatch(); }
   ReadPageGuard(const ReadPageGuard &) = delete;
   auto operator=(const ReadPageGuard &) -> ReadPageGuard & = delete;
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Move constructor for ReadPageGuard
    *
    * Very similar to BasicPageGuard. You want to create
@@ -101,8 +100,7 @@ class ReadPageGuard {
    */
   ReadPageGuard(ReadPageGuard &&that) noexcept;
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Move assignment for ReadPageGuard
    *
    * Very similar to BasicPageGuard. Given another ReadPageGuard,
@@ -110,8 +108,7 @@ class ReadPageGuard {
    */
   auto operator=(ReadPageGuard &&that) noexcept -> ReadPageGuard &;
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Drop a ReadPageGuard
    *
    * ReadPageGuard's Drop should behave similarly to BasicPageGuard,
@@ -121,8 +118,7 @@ class ReadPageGuard {
    */
   void Drop();
 
-  /** TODO(P1): Add implementation
-   *
+  /*
    * @brief Destructor for ReadPageGuard
    *
    * Just like with BasicPageGuard, this should behave
