@@ -1,0 +1,8 @@
+[project-init]
+command=cmake -B build -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DBUSTUB_SANITIZER=
+[project-build]
+cwd=$(VIM_ROOT)/build
+command=cmake --build . -j$(nproc)&make page_guard_test
+[project-run]
+cwd=$(VIM_ROOT)/build
+command=test/page_guard_test
